@@ -139,12 +139,61 @@ jobs:
           if [ -z "$IPA_URL" ] || [ -z "$IPA_SIZE" ] || [ -z "$TAG_NAME" ]; then echo "Pixiv-SwiftUI: 未找到 IPA 或版本信息"; exit 1; fi
           jq --arg v "$TAG_NAME" --arg d "$PUBLISHED_AT" --arg body "$BODY" --arg url "$IPA_URL" --argjson size "$IPA_SIZE"             '.apps[9].version=$v | .apps[9].versionDate=$d | .apps[9].versionDescription=$body | .apps[9].downloadURL=$url | .apps[9].size=$size | .apps[9].versions=[{"version":$v,"date":$d,"localizedDescription":$body,"downloadURL":$url,"size":$size}]'             apps.json > tmp.json && mv tmp.json apps.json
           echo "Pixiv-SwiftUI: $TAG_NAME / $IPA_SIZE bytes"
+      - name: Sync Moke
+        run: |
+          set -euo pipefail
+          curl -fsSL --retry 3 --retry-delay 2 https://api.github.com/repos/talebook/moke/releases/latest > release_moke.json
+          IPA_URL=$(jq -r '[.assets[] | select(.name | ascii_downcase | endswith(".ipa")) | .browser_download_url][0] // empty' release_moke.json)
+          IPA_SIZE=$(jq -r '[.assets[] | select(.name | ascii_downcase | endswith(".ipa")) | .size][0] // empty' release_moke.json)
+          TAG_NAME=$(jq -r '.tag_name // empty' release_moke.json)
+          TAG_NAME="${TAG_NAME#v}"
+          PUBLISHED_AT=$(jq -r '.published_at // empty' release_moke.json)
+          BODY=$(jq -r '.body // ""' release_moke.json)
+          if [ -z "$IPA_URL" ] || [ -z "$IPA_SIZE" ] || [ -z "$TAG_NAME" ]; then echo "Moke: 未找到 IPA 或版本信息，跳过"; exit 0; fi
+          jq --arg v "$TAG_NAME" --arg d "$PUBLISHED_AT" --arg body "$BODY" --arg url "$IPA_URL" --argjson size "$IPA_SIZE" \
+            '(.apps[] | select(.bundleIdentifier == "app.suyun3.test")) |= (.version=$v | .versionDate=$d | .versionDescription=$body | .downloadURL=$url | .size=$size | .versions=[{"version":$v,"date":$d,"localizedDescription":$body,"downloadURL":$url,"size":$size}])' \
+            apps.json > tmp.json && mv tmp.json apps.json
+          echo "Moke: $TAG_NAME / $IPA_SIZE bytes"
+      - name: Sync Breeze
+        run: |
+          set -euo pipefail
+          curl -fsSL --retry 3 --retry-delay 2 https://api.github.com/repos/breeze-project-org/Breeze/releases/latest > release_breeze.json
+          IPA_URL=$(jq -r '[.assets[] | select(.name | ascii_downcase | endswith(".ipa")) | .browser_download_url][0] // empty' release_breeze.json)
+          IPA_SIZE=$(jq -r '[.assets[] | select(.name | ascii_downcase | endswith(".ipa")) | .size][0] // empty' release_breeze.json)
+          TAG_NAME=$(jq -r '.tag_name // empty' release_breeze.json)
+          TAG_NAME="${TAG_NAME#v}"
+          PUBLISHED_AT=$(jq -r '.published_at // empty' release_breeze.json)
+          BODY=$(jq -r '.body // ""' release_breeze.json)
+          if [ -z "$IPA_URL" ] || [ -z "$IPA_SIZE" ] || [ -z "$TAG_NAME" ]; then echo "Breeze: 未找到 IPA 或版本信息，跳过"; exit 0; fi
+          jq --arg v "$TAG_NAME" --arg d "$PUBLISHED_AT" --arg body "$BODY" --arg url "$IPA_URL" --argjson size "$IPA_SIZE" \
+            '(.apps[] | select(.bundleIdentifier == "com.zephyr.breeze")) |= (.version=$v | .versionDate=$d | .versionDescription=$body | .downloadURL=$url | .size=$size | .versions=[{"version":$v,"date":$d,"localizedDescription":$body,"downloadURL":$url,"size":$size}])' \
+            apps.json > tmp.json && mv tmp.json apps.json
+          echo "Breeze: $TAG_NAME / $IPA_SIZE bytes"
+      - name: Sync iDuanJu
+        run: |
+          set -euo pipefail
+          curl -fsSL --retry 3 --retry-delay 2 'https://api.github.com/repos/my-name-is-alan/iDuanJu/releases?per_page=15' > releases_idj.json
+          REL=$(jq -c '[.[] | select(.draft == false) | select(any(.assets[]?; (.name | ascii_downcase | endswith(".ipa"))))] | sort_by(.published_at) | reverse | .[0] // empty' releases_idj.json)
+          if [ -z "$REL" ]; then echo "iDuanJu: 最近 15 个 release 里没有 IPA，跳过"; exit 0; fi
+          IPA_URL=$(echo "$REL" | jq -r '[.assets[] | select(.name | ascii_downcase | endswith(".ipa")) | .browser_download_url][0] // empty')
+          IPA_NAME=$(echo "$REL" | jq -r '[.assets[] | select(.name | ascii_downcase | endswith(".ipa")) | .name][0] // empty')
+          IPA_SIZE=$(echo "$REL" | jq -r '[.assets[] | select(.name | ascii_downcase | endswith(".ipa")) | .size][0] // empty')
+          TAG_NAME=$(echo "$REL" | jq -r '.tag_name // empty')
+          PUBLISHED_AT=$(echo "$REL" | jq -r '.published_at // empty')
+          BODY=$(echo "$REL" | jq -r '.body // ""')
+          VERSION=$(echo "$IPA_NAME" | sed -E 's/^STV-//; s/-unsigned\.ipa$//; s/^v//')
+          if [ -z "$VERSION" ]; then VERSION=$(echo "$TAG_NAME" | sed -E 's/^v//'); fi
+          if [ -z "$IPA_URL" ] || [ -z "$IPA_SIZE" ] || [ -z "$VERSION" ]; then echo "iDuanJu: 未找到 IPA 或版本信息，跳过"; exit 0; fi
+          jq --arg v "$VERSION" --arg d "$PUBLISHED_AT" --arg body "$BODY" --arg url "$IPA_URL" --argjson size "$IPA_SIZE" \
+            '(.apps[] | select(.bundleIdentifier == "com.local.STV")) |= (.version=$v | .versionDate=$d | .versionDescription=$body | .downloadURL=$url | .size=$size | .versions=[{"version":$v,"date":$d,"localizedDescription":$body,"downloadURL":$url,"size":$size}])' \
+            apps.json > tmp.json && mv tmp.json apps.json
+          echo "iDuanJu: $VERSION / $IPA_SIZE bytes"
       - name: Validate apps.json
         run: |
           set -euo pipefail
           jq empty apps.json
           test "$(jq '[.apps[] | select(.developerName == "AREKERT" or .bundleIdentifier == "com.arekert.read")] | length' apps.json)" = "0"
-          test "$(jq '.apps | length' apps.json)" = "10"
+          test "$(jq '.apps | length' apps.json)" = "13"
           if jq -e '[.apps[] | select(.size == 0 or .downloadURL == null or .version == null)] | length > 0' apps.json >/dev/null; then
             echo '存在尚未同步的应用元数据'; exit 1
           fi
