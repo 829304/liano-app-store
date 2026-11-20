@@ -272,21 +272,21 @@
       "name": "iDuanJu",
       "bundleIdentifier": "com.local.STV",
       "developerName": "my-name-is-alan",
-      "version": "1.5b15",
-      "versionDate": "2026-11-20T08:35:34Z",
-      "versionDescription": "# i短剧 iOS 1.5 b15 / Android 1.5.15 — 小说界面重构版\n\n本次更新重构了双端小说模块的 **书架 / 书籍搜索 / 书籍详情 / 小说榜单** 四个核心页面，全面对齐短剧 `STVTheme` 视觉体系并精简冗余卡片，同时保留原有 Legado 多源搜索、筛选与阅读功能。\n\n## 本次更新\n\n- **书架**：改为首页同款封面氛围「最近在读」Hero 横幅 + 白色高对比续读按钮；下方「搜书 / 排行榜 / 书源 / 导入」去卡片轻量化；新增「全部 / 在读 / 本地」轻筛选；升级书脊压痕与无图「布面精装」兜底封面。\n- **书籍搜索**：返回、搜索框与启用书源计数合入一体化顶栏；全页 0 卡片开放细线列表，精确命中行自然领衔并展示关键字高亮、简介预览与多源聚合角标。\n- **书籍详情**：对齐短剧详情架构——全幅封面模糊氛围头图、唯一轻容器三列真实指标带（目录总章 / 可用书源 / 离线已缓）、黑白高对比「开始阅读」与圆形「书架 / 下载」按钮（上滑吸底浮现），简介、目录换源与编号试读章节改为开放细线排版。\n- **小说榜单**：移除旧版 86dp 左侧竖栏，采用顶部「书源切换胶囊 + 榜单页签 + 分类胶囊」全宽横栏，搭配 0 卡片 Top 3 三列大封面领奖台与 `#4` 起全宽开放列表。\n- **发布流水线**：新增 tag 自动构建发布工作流（`.github/workflows/release-on-tag.yml`），推送 `v*` 标签自动完成双端构建、校验与 Release 发布。\n\n## 验证说明\n\n- Android：本地通过 `:core:test`、`:app:assembleDebug`、`:app:assembleDebugAndroidTest`，CI 自动构建签名 Release APK 并校验签名与 SHA-256。\n- iOS：CI 自动构建 Release 未签名 IPA 并校验包结构、版本号与 SHA-256；本轮未在实体 iPhone 上做真机 UI 验收。\n\n---\n包内版本为 1.5 build 15。IPA 未签名（最低 iOS 18），请自行重签侧载。\n\n请选择 Assets 中的 APK / IPA，不要下载 Source code。SHA-256 见附件。\n构建源码：311982cbb7c9b6f08a12ac19866b8b8ef6d3390e\n自动构建：https://github.com/my-name-is-alan/iDuanJu/actions/runs/44701111442",
+      "version": "1.6b17",
+      "versionDate": "2026-11-20T14:19:35Z",
+      "versionDescription": "i短剧 iOS 1.6b17 · iOS 16+ 侧载与平板双栏版\n\n- 修复红果取流失败：同步 gateway 0613b49 当前 Medusa 签名、服务器时间校准、健康匿名身份复用与有界端点回退。\n- 修复筛选条件：独立 551 签名；真人剧、漫剧、AI 剧分别加载面板，切换后清理旧条件，修正场景和分页去重参数。\n- Swift/Kotlin 102 组合成向量通过；Android 连续 6 集实网取流与三类筛选前两页通过；双端设备构建通过。本轮没有真机 UI 验收。\n\n包内版本为 1.6 build 17，直接发布已验证产物。IPA 未签名，最低 iOS 18，请自行重签侧载。\n\n请选择 Assets 中的 APK / IPA，不要下载 Source code。SHA-256 见附件。\n构建源码：5f7b51d332cccd115ad5b1abcab22e2bb8b7799a\n原始成功构建：https://github.com/my-name-is-alan/iDuanJu/actions/runs/44744206530",
       "localizedDescription": "i短剧：免费开源的多源短剧 / 视频 / 漫画聚合播放器，内置 QuickJS 插件沙箱。",
-      "downloadURL": "https://github.com/my-name-is-alan/iDuanJu/releases/download/v1.5b15-novel-ui/STV-1.5b15-unsigned.ipa",
+      "downloadURL": "https://github.com/my-name-is-alan/iDuanJu/releases/download/v1.6b17-ios16-pad/STV-1.6b17-unsigned.ipa",
       "iconURL": "https://raw.githubusercontent.com/829304/liano-app-store/main/appicon/iDuanJu.png",
       "tintColor": "#EF4444",
-      "size": 42773255,
+      "size": 46870433,
       "versions": [
         {
-          "version": "1.5b15",
-          "date": "2026-11-20T08:35:34Z",
-          "localizedDescription": "# i短剧 iOS 1.5 b15 / Android 1.5.15 — 小说界面重构版\n\n本次更新重构了双端小说模块的 **书架 / 书籍搜索 / 书籍详情 / 小说榜单** 四个核心页面，全面对齐短剧 `STVTheme` 视觉体系并精简冗余卡片，同时保留原有 Legado 多源搜索、筛选与阅读功能。\n\n## 本次更新\n\n- **书架**：改为首页同款封面氛围「最近在读」Hero 横幅 + 白色高对比续读按钮；下方「搜书 / 排行榜 / 书源 / 导入」去卡片轻量化；新增「全部 / 在读 / 本地」轻筛选；升级书脊压痕与无图「布面精装」兜底封面。\n- **书籍搜索**：返回、搜索框与启用书源计数合入一体化顶栏；全页 0 卡片开放细线列表，精确命中行自然领衔并展示关键字高亮、简介预览与多源聚合角标。\n- **书籍详情**：对齐短剧详情架构——全幅封面模糊氛围头图、唯一轻容器三列真实指标带（目录总章 / 可用书源 / 离线已缓）、黑白高对比「开始阅读」与圆形「书架 / 下载」按钮（上滑吸底浮现），简介、目录换源与编号试读章节改为开放细线排版。\n- **小说榜单**：移除旧版 86dp 左侧竖栏，采用顶部「书源切换胶囊 + 榜单页签 + 分类胶囊」全宽横栏，搭配 0 卡片 Top 3 三列大封面领奖台与 `#4` 起全宽开放列表。\n- **发布流水线**：新增 tag 自动构建发布工作流（`.github/workflows/release-on-tag.yml`），推送 `v*` 标签自动完成双端构建、校验与 Release 发布。\n\n## 验证说明\n\n- Android：本地通过 `:core:test`、`:app:assembleDebug`、`:app:assembleDebugAndroidTest`，CI 自动构建签名 Release APK 并校验签名与 SHA-256。\n- iOS：CI 自动构建 Release 未签名 IPA 并校验包结构、版本号与 SHA-256；本轮未在实体 iPhone 上做真机 UI 验收。\n\n---\n包内版本为 1.5 build 15。IPA 未签名（最低 iOS 18），请自行重签侧载。\n\n请选择 Assets 中的 APK / IPA，不要下载 Source code。SHA-256 见附件。\n构建源码：311982cbb7c9b6f08a12ac19866b8b8ef6d3390e\n自动构建：https://github.com/my-name-is-alan/iDuanJu/actions/runs/44701111442",
-          "downloadURL": "https://github.com/my-name-is-alan/iDuanJu/releases/download/v1.5b15-novel-ui/STV-1.5b15-unsigned.ipa",
-          "size": 42773255
+          "version": "1.6b17",
+          "date": "2026-11-20T14:19:35Z",
+          "localizedDescription": "i短剧 iOS 1.6b17 · iOS 16+ 侧载与平板双栏版\n\n- 修复红果取流失败：同步 gateway 0613b49 当前 Medusa 签名、服务器时间校准、健康匿名身份复用与有界端点回退。\n- 修复筛选条件：独立 551 签名；真人剧、漫剧、AI 剧分别加载面板，切换后清理旧条件，修正场景和分页去重参数。\n- Swift/Kotlin 102 组合成向量通过；Android 连续 6 集实网取流与三类筛选前两页通过；双端设备构建通过。本轮没有真机 UI 验收。\n\n包内版本为 1.6 build 17，直接发布已验证产物。IPA 未签名，最低 iOS 18，请自行重签侧载。\n\n请选择 Assets 中的 APK / IPA，不要下载 Source code。SHA-256 见附件。\n构建源码：5f7b51d332cccd115ad5b1abcab22e2bb8b7799a\n原始成功构建：https://github.com/my-name-is-alan/iDuanJu/actions/runs/44744206530",
+          "downloadURL": "https://github.com/my-name-is-alan/iDuanJu/releases/download/v1.6b17-ios16-pad/STV-1.6b17-unsigned.ipa",
+          "size": 46870433
         }
       ]
     }
