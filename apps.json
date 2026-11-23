@@ -272,21 +272,21 @@
       "name": "iDuanJu",
       "bundleIdentifier": "com.local.STV",
       "developerName": "my-name-is-alan",
-      "version": "1.6b25",
-      "versionDate": "2026-11-22T16:00:08Z",
-      "versionDescription": "# i短剧 1.6b25 自动连播体验与双端增强版\n\n- **自动播放下一集保持隐藏播控（iOS，#21）**：自动连播切换分集时不再弹出顶部/底部播控栏，仅保留轻量的「第 N 集」OSD 提示，手动滑集与选集交互不变。\n- 包含 `1.6b24` 全部双端增强：Android 画中画 / 更多设置面板 / CAS GPU 锐化 / Compose 性能优化 / 演员可点击，以及 iOS 同步的倍速记忆、定时关闭、MPVKit GPU 锐化与演员可点击。\n\nIPA 为未签名包，需要自行重签后安装。Android 包使用项目现有分发签名。\n\n---\n包内版本为 1.6 build 25。IPA 未签名（最低 iOS 18），请自行重签侧载。\n\n请选择 Assets 中的 APK / IPA，不要下载 Source code。SHA-256 见附件。\n构建源码：4ac3bae241cf7314daa5bbf0ce8d27cc1225dfa6\n自动构建：https://github.com/my-name-is-alan/iDuanJu/actions/runs/45039937906",
+      "version": "1.6b30",
+      "versionDate": "2026-11-23T08:14:21Z",
+      "versionDescription": "# i短剧 1.6b30 播放器热修（Android 黑屏无声修复 + iOS 无感切集优化）\n\n### Android 热修\n- **修复部分机型播放红果黑屏无声**：\n  - 移除双并发 `ExoPlayer`（`standbyPlayer`）与第二个 `TextureView`，改为单 `ExoPlayer` + 后台异步首帧 `Bitmap` 无缝交接，彻底消除双硬解实例抢占解码器/音频焦点的问题；\n  - `EpisodeCache` 首帧抽取改为后台异步执行，不再阻塞起播；\n  - 仅在开启超分锐化或 SDR→HDR 时才挂载 `VideoFrameProcessor` GL 管线，默认播放走原生硬件直出，并恢复 `2s / 2.5s` 安全预缓存间隔。\n\n### iOS 体验优化\n- **切集无闪烁 & 去 Toast**：\n  - 切集时保持当前播控显隐状态不变，不再强制弹出/闪烁底部进度条与播控栏，也不再清空 `tech` / `videoSize`；\n  - 移除切集时的「第 X 集」Toast 弹窗；\n  - 首帧交接增加 `90ms` 渲染缓冲（`revealedIndex`），等 `MPVMetalLayer` 送显第 0 帧后再揭开首帧图，消除切集瞬间黑闪。\n\nIPA 为未签名包，需要自行重签后安装。Android 包使用项目现有分发签名。\n\n---\n包内版本为 1.6 build 30。IPA 未签名（最低 iOS 18），请自行重签侧载。\n\n请选择 Assets 中的 APK / IPA，不要下载 Source code。SHA-256 见附件。\n构建源码：ae2560251a8325c1cb7ffbe50207b744591a738d\n自动构建：https://github.com/my-name-is-alan/iDuanJu/actions/runs/45134094130",
       "localizedDescription": "i短剧：免费开源的多源短剧 / 视频 / 漫画聚合播放器，内置 QuickJS 插件沙箱。",
-      "downloadURL": "https://github.com/my-name-is-alan/iDuanJu/releases/download/v1.6b25-auto-next-chrome/STV-1.6b25-unsigned.ipa",
+      "downloadURL": "https://github.com/my-name-is-alan/iDuanJu/releases/download/v1.6b30-player-hotfix/STV-1.6b30-unsigned.ipa",
       "iconURL": "https://raw.githubusercontent.com/829304/liano-app-store/main/appicon/iDuanJu.png",
       "tintColor": "#EF4444",
-      "size": 46957140,
+      "size": 47198163,
       "versions": [
         {
-          "version": "1.6b25",
-          "date": "2026-11-22T16:00:08Z",
-          "localizedDescription": "# i短剧 1.6b25 自动连播体验与双端增强版\n\n- **自动播放下一集保持隐藏播控（iOS，#21）**：自动连播切换分集时不再弹出顶部/底部播控栏，仅保留轻量的「第 N 集」OSD 提示，手动滑集与选集交互不变。\n- 包含 `1.6b24` 全部双端增强：Android 画中画 / 更多设置面板 / CAS GPU 锐化 / Compose 性能优化 / 演员可点击，以及 iOS 同步的倍速记忆、定时关闭、MPVKit GPU 锐化与演员可点击。\n\nIPA 为未签名包，需要自行重签后安装。Android 包使用项目现有分发签名。\n\n---\n包内版本为 1.6 build 25。IPA 未签名（最低 iOS 18），请自行重签侧载。\n\n请选择 Assets 中的 APK / IPA，不要下载 Source code。SHA-256 见附件。\n构建源码：4ac3bae241cf7314daa5bbf0ce8d27cc1225dfa6\n自动构建：https://github.com/my-name-is-alan/iDuanJu/actions/runs/45039937906",
-          "downloadURL": "https://github.com/my-name-is-alan/iDuanJu/releases/download/v1.6b25-auto-next-chrome/STV-1.6b25-unsigned.ipa",
-          "size": 46957140
+          "version": "1.6b30",
+          "date": "2026-11-23T08:14:21Z",
+          "localizedDescription": "# i短剧 1.6b30 播放器热修（Android 黑屏无声修复 + iOS 无感切集优化）\n\n### Android 热修\n- **修复部分机型播放红果黑屏无声**：\n  - 移除双并发 `ExoPlayer`（`standbyPlayer`）与第二个 `TextureView`，改为单 `ExoPlayer` + 后台异步首帧 `Bitmap` 无缝交接，彻底消除双硬解实例抢占解码器/音频焦点的问题；\n  - `EpisodeCache` 首帧抽取改为后台异步执行，不再阻塞起播；\n  - 仅在开启超分锐化或 SDR→HDR 时才挂载 `VideoFrameProcessor` GL 管线，默认播放走原生硬件直出，并恢复 `2s / 2.5s` 安全预缓存间隔。\n\n### iOS 体验优化\n- **切集无闪烁 & 去 Toast**：\n  - 切集时保持当前播控显隐状态不变，不再强制弹出/闪烁底部进度条与播控栏，也不再清空 `tech` / `videoSize`；\n  - 移除切集时的「第 X 集」Toast 弹窗；\n  - 首帧交接增加 `90ms` 渲染缓冲（`revealedIndex`），等 `MPVMetalLayer` 送显第 0 帧后再揭开首帧图，消除切集瞬间黑闪。\n\nIPA 为未签名包，需要自行重签后安装。Android 包使用项目现有分发签名。\n\n---\n包内版本为 1.6 build 30。IPA 未签名（最低 iOS 18），请自行重签侧载。\n\n请选择 Assets 中的 APK / IPA，不要下载 Source code。SHA-256 见附件。\n构建源码：ae2560251a8325c1cb7ffbe50207b744591a738d\n自动构建：https://github.com/my-name-is-alan/iDuanJu/actions/runs/45134094130",
+          "downloadURL": "https://github.com/my-name-is-alan/iDuanJu/releases/download/v1.6b30-player-hotfix/STV-1.6b30-unsigned.ipa",
+          "size": 47198163
         }
       ]
     }
